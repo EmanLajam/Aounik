@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Roles"></activity>
+        <activity android:name=".Forms"></activity>
+        <activity android:name=".Restaurants" />
+        <activity android:name=".Services" />
+        <activity android:name=".Roles" />
         <activity android:name=".Regster" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".Select" />

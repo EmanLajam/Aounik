@@ -7,23 +7,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
-    Button  btnLogin;
+public class Services extends AppCompatActivity {
+    private Button ResturantBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        btnLogin = (Button) findViewById(R.id.btnLogin);
+        setContentView(R.layout.activity_services);
 
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        ResturantBtn = (Button) findViewById(R.id.coffe);
+
+        ResturantBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent s = new Intent(getApplicationContext(),Restaurants.class);
-                startActivity(s);
+
+               Intent ResturantList = new Intent(getApplicationContext(), Restaurants.class);
+                startActivity(ResturantList);
             }
         });
-
     }
+
 }

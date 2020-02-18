@@ -4,6 +4,7 @@ package com.example.aounikApp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -58,8 +59,8 @@ public class LoginActivity extends AppCompatActivity {
                         User Login = dataSnapshot.child(id).getValue(User.class);
                         if(Login.getPassword().equals(password)){
                             Toast.makeText(LoginActivity.this,"Success Login",Toast.LENGTH_SHORT).show();
-                          //  Intent s = new Intent(getApplicationContext(),Roles.class);
-                         //   startActivity(s);
+                           Intent s = new Intent(getApplicationContext(),Roles.class);
+                           startActivity(s);
                         }
                         else {
                             Toast.makeText(LoginActivity.this,"password is wrong",Toast.LENGTH_SHORT).show();

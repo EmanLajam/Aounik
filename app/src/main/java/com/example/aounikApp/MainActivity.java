@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent s = new Intent(getApplicationContext(),Restaurants.class);
+                Intent s = new Intent(getApplicationContext(),Select.class);
                 startActivity(s);
             }
         });

@@ -21,8 +21,8 @@ public class Roles extends AppCompatActivity {
         btnReq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //    Intent s = new Intent(getApplicationContext(), Services.class);
-           //     startActivity(s);
+                Intent s = new Intent(getApplicationContext(), Services.class);
+               startActivity(s);
 
             }
 
@@ -32,8 +32,8 @@ public class Roles extends AppCompatActivity {
         btnProv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-           //     Intent s = new Intent(getApplicationContext(), OrderList.class);
-            //    startActivity(s);
+               Intent s = new Intent(getApplicationContext(), OrderList.class);
+               startActivity(s);
             }
         });
 

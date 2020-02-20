@@ -68,8 +68,8 @@ public class Forms extends AppCompatActivity {
             order new_order = new order(id, Phone, date_order, description);
             databaseReference.child(id).setValue(new_order);
             Toast.makeText(this, "Done", Toast.LENGTH_LONG).show();
-         //   Intent s = new Intent(getApplicationContext(), MapsActivity.class);
-          //  startActivity(s);
+           Intent s = new Intent(getApplicationContext(), MapsActivity.class);
+           startActivity(s);
         }else{
             Toast.makeText(this,"You should enter the empity fields!",Toast.LENGTH_LONG).show();
         }

@@ -17,7 +17,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -41,6 +40,10 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 
 import java.util.Arrays;
 import java.util.List;
+
+/**
+ * An activity that displays a map showing the place at the device's current location.
+ */
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 

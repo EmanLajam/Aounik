@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(),order_details.class);
+                Intent intent = new Intent(getApplicationContext(),Select.class);
                 startActivity(intent);
                 finish();
             }

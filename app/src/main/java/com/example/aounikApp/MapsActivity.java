@@ -1,16 +1,23 @@
 package com.example.aounikApp;
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -40,6 +47,9 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 
 import java.util.Arrays;
 import java.util.List;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import android.view.ViewGroup;
 
 /**
  * An activity that displays a map showing the place at the device's current location.
@@ -47,8 +57,19 @@ import java.util.List;
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback {
 
+    private EditText comment;
+    Button createOrder;
+    DatabaseReference databaseReference;
+    FirebaseDatabase database;
+
+
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
+    private LocationListener locationListener;
+    private LocationManager locationManager;
+    private final long MIN_TIME = 1000;
+    private final long MIN_DIST = 5;
+
     private CameraPosition mCameraPosition;
 
     // The entry point to the Places API.
@@ -79,9 +100,11 @@ public class MapsActivity extends AppCompatActivity
     private List[] mLikelyPlaceAttributions;
     private LatLng[] mLikelyPlaceLatLngs;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
@@ -104,6 +127,12 @@ public class MapsActivity extends AppCompatActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
+        TextView textView = findViewById(R.id.location);
+//        textView.setText(moblie);
+        createOrder = (Button) findViewById(R.id.sendBtn);
+
+       setOnMapClick(createOrder);
     }
 
     /**
@@ -120,6 +149,7 @@ public class MapsActivity extends AppCompatActivity
 
     /**
      * Sets up the options menu.
+     *
      * @param menu The options menu.
      * @return Boolean.
      */
@@ -131,6 +161,7 @@ public class MapsActivity extends AppCompatActivity
 
     /**
      * Handles a click on the menu option to get a place.
+     *
      * @param item The menu item to handle.
      * @return Boolean.
      */
@@ -184,7 +215,9 @@ public class MapsActivity extends AppCompatActivity
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
-    }
+
+
+        }
 
     /**
      * Gets the current location of the device, and positions the map's camera.
@@ -218,7 +251,7 @@ public class MapsActivity extends AppCompatActivity
                     }
                 });
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
@@ -284,10 +317,9 @@ public class MapsActivity extends AppCompatActivity
 
             // Get the likely places - that is, the businesses and other points of interest that
             // are the best match for the device's current location.
-            @SuppressWarnings("MissingPermission") final
-            Task<FindCurrentPlaceResponse> placeResult =
+            @SuppressWarnings("MissingPermission") final Task<FindCurrentPlaceResponse> placeResult =
                     mPlacesClient.findCurrentPlace(request);
-            placeResult.addOnCompleteListener (new OnCompleteListener<FindCurrentPlaceResponse>() {
+            placeResult.addOnCompleteListener(new OnCompleteListener<FindCurrentPlaceResponse>() {
                 @Override
                 public void onComplete(@NonNull Task<FindCurrentPlaceResponse> task) {
                     if (task.isSuccessful() && task.getResult() != null) {
@@ -324,10 +356,17 @@ public class MapsActivity extends AppCompatActivity
                         // Show a dialog offering the user the list of likely places, and add a
                         // marker at the selected place.
                         MapsActivity.this.openPlacesDialog();
-                    }
-                    else {
+                    } else {
                         Log.e(TAG, "Exception: %s", task.getException());
                     }
+                 /*   createOrder.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            createOrderr();
+
+
+                        }
+                    });*/
                 }
             });
         } else {
@@ -397,8 +436,45 @@ public class MapsActivity extends AppCompatActivity
                 mLastKnownLocation = null;
                 getLocationPermission();
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
+
+
     }
-}
+
+    public void setOnMapClick(Button button ) {
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                order Order = new order();
+                database = FirebaseDatabase.getInstance();
+                databaseReference = database.getReference("Order");
+                Intent intent = getIntent();
+                order Order = (order) intent.getSerializableExtra("order_data");
+                comment = findViewById(R.id.commentID);
+               String locationDes = comment.getText().toString();
+                Order.setLocationDes(locationDes);
+//                String Phone = Order.getMoblie();
+//                String date = Order.getDate();
+//                String des = Order.getDescription();
+//                String restuName = Order.getResturantName();
+                String id = databaseReference.push().getKey();
+//                final order new_order = new order(id, Phone, date, des, locationDes , restuName);
+                Order.id = id;
+                databaseReference.child(id).setValue(Order);
+                Toast.makeText(MapsActivity.this, "Done", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
+
+
+
+          }
+
+
+

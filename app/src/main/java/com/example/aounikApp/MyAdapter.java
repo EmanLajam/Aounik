@@ -39,14 +39,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     //here we control with items
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
-
         holder.name.setText(orders.get(position).getId());
+        holder.date.setText(orders.get(position).getDate());
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,OrderPage.class);
-                intent.putExtra("name",orders.get(position).getDate());
+                intent.putExtra("id",orders.get(position).getId());
+                intent.putExtra("date",orders.get(position).getDate());
+                intent.putExtra("phone",orders.get(position).getMoblie());
+                intent.putExtra("des",orders.get(position).getDescription());
                 context.startActivity(intent);
+
             }
         });
 
@@ -67,7 +71,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.ordertName);
             relativeLayout = (RelativeLayout) itemView.findViewById(R.id.relative);
-            date = (TextView) itemView.findViewById(R.id.textView2);
+           date = (TextView) itemView.findViewById(R.id.resturantLocation);
 
         }
 

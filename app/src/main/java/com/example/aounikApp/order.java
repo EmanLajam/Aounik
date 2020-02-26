@@ -1,10 +1,26 @@
 package com.example.aounikApp;
 
-public class order {
-    private String id;
-    private String moblie;
-    private String date;
-    private String Description;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class order implements Serializable {
+      String id;
+     private String moblie;
+     private String date;
+     private String Description;
+    private String resturantName;
+    private String locationDes;
+
+    public void setLocationDes(String locationDes) {
+        this.locationDes = locationDes;
+    }
+
+    public String getLocationDes() {
+        return locationDes;
+    }
+
 
     public void setDate(String date) {
         this.date = date;
@@ -17,11 +33,21 @@ public class order {
     public order() {
     }
 
-    public order(String id, String moblie,  String Date,String description) {
+    public String getResturantName() {
+        return resturantName;
+    }
+
+    public void setResturantName(String resturantName) {
+        this.resturantName = resturantName;
+    }
+
+    public order(String id,  String name, String moblie, String Date, String description, String locationDes ) {
         this.id = id;
+        resturantName = name;
         this.moblie = moblie;
-        Description = description;
         date = Date;
+        Description = description;
+        this.locationDes = locationDes;
     }
 
     public String getId() {

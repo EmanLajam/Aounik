@@ -23,7 +23,8 @@ public class OrderList extends AppCompatActivity {
     private ArrayList<order> orders;
     DatabaseReference databaseReference;
     public static final String EXTRA_DATE="date";
-
+    public static final String EXTRA_DESCRIPTION="des";
+    public static final String EXTRA_PHONE="mobile";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

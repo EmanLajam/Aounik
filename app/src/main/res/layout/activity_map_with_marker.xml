@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapsActivity"
+    tools:context=".MapWithMarker"
     tools:layout="@android:layout/simple_spinner_dropdown_item">
 
     <fragment
@@ -12,25 +12,16 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MapsActivity"
+        tools:context=".MapsWithMarker"
         tools:layout="@android:layout/simple_spinner_dropdown_item" />
 
 
     <Button
-        android:id="@+id/anotherPlace"
+        android:id="@+id/choose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="600dp"
 
-        android:text="Select another place" />
-
-    <Button
-        android:id="@+id/current"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="550dp"
-
-        android:text="Select current place" />
+        android:text="Choose location" />
 
 </FrameLayout>
-

@@ -1,20 +1,16 @@
 package com.example.aounikApp;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.location.LocationListener;
-import android.location.LocationManager;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,32 +43,22 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 
 import java.util.Arrays;
 import java.util.List;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-/**
- * An activity that displays a map showing the place at the device's current location.
- */
-public class MapsActivity extends AppCompatActivity
+public class MapWithMarker extends AppCompatActivity
         implements OnMapReadyCallback {
 
-    private EditText comment;
-    Button Current;
-    Button markerBtn;
-    DatabaseReference databaseReference;
-    FirebaseDatabase database;
-Double longitude;
-Double latitude;
-
-    private static final String TAG = MapsActivity.class.getSimpleName();
+    private static final String TAG = MapWithMarker.class.getSimpleName();
     private GoogleMap mMap;
-    private LocationListener locationListener;
-    private LocationManager locationManager;
-    private final long MIN_TIME = 1000;
-    private final long MIN_DIST = 5;
-
     private CameraPosition mCameraPosition;
-
+    Button Choose;
+    private static final LatLng myCollege = new LatLng(21.4891218, 39.2463973);
+    private static final LatLng Building420 = new LatLng(21.4891912, 39.2443182);
+    private static final LatLng NorthGate = new LatLng(21.4892162, 39.2439748);
+    private Marker mMycollege;
+    private Marker mBuilding420;
+    private Marker mNorthGate;
+    Double logitude;
+    Double latitude;
+    String place;
     // The entry point to the Places API.
     private PlacesClient mPlacesClient;
 
@@ -101,11 +87,9 @@ Double latitude;
     private List[] mLikelyPlaceAttributions;
     private LatLng[] mLikelyPlaceLatLngs;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
@@ -114,7 +98,7 @@ Double latitude;
         }
 
         // Retrieve the content view that renders the map.
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_map_with_marker);
 
         // Construct a PlacesClient
         Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
@@ -127,35 +111,28 @@ Double latitude;
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        // Getting latitude of the current location
 
+        Choose = (Button) findViewById(R.id.choose);
+       Choose.setOnClickListener(new View.OnClickListener() {
+           @Override
+          public void onClick(View v) {
+              Intent intent = getIntent();
+              order Order = (order) intent.getSerializableExtra("order_data");
 
-
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            return;
-        }
-        if (lm.getLastKnownLocation(LocationManager.GPS_PROVIDER) != null) {
-            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            longitude = location.getLongitude();
-            latitude = location.getLatitude();
-        } else {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                return;
+              if (latitude != null && logitude != null){
+               Order.setLatitude(latitude);
+               Order.setLongitude(logitude);
+              intent.putExtra("order_data", Order);
+              intent.putExtra("place", place);
+              intent.setClass(MapWithMarker.this,LocationForm.class);
+                startActivity(intent);
+               Toast.makeText(MapWithMarker.this, "Ok", Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(MapWithMarker.this, "must choose location", Toast.LENGTH_LONG).show();
+               }
             }
-            Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            longitude = location.getLongitude();
-            latitude = location.getLatitude();
-        }
-
-        Current = (Button) findViewById(R.id.current);
-        markerBtn = (Button) findViewById(R.id.anotherPlace) ;
-       setOnMapClick(Current);
-       setOnsecondMapClick(markerBtn);
-
-    }
+       });
+  }
 
     /**
      * Saves the state of the map when the activity is paused.
@@ -171,7 +148,6 @@ Double latitude;
 
     /**
      * Sets up the options menu.
-     *
      * @param menu The options menu.
      * @return Boolean.
      */
@@ -183,7 +159,6 @@ Double latitude;
 
     /**
      * Handles a click on the menu option to get a place.
-     *
      * @param item The menu item to handle.
      * @return Boolean.
      */
@@ -200,8 +175,44 @@ Double latitude;
      * This callback is triggered when the map is ready to be used.
      */
     @Override
-    public void onMapReady(GoogleMap map) {
+    public void onMapReady(final GoogleMap map) {
         mMap = map;
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        // Add a marker in Sydney and move the camera
+//        LatLng mycolleage = new LatLng(21.4891218, 39.2463973);
+//        mMap.addMarker(new MarkerOptions().position(mycolleage).title("كلية الحاسبات وتقنية المعلومات"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(mycolleage));
+        mMycollege = mMap.addMarker(new MarkerOptions()
+                .position(myCollege)
+                .title("كلية الحاسبات وتقنية المعلومات"));
+        mMycollege.setTag(0);
+
+        mBuilding420 = mMap.addMarker(new MarkerOptions()
+                .position(Building420)
+                .title("مبنى 420"));
+        mBuilding420.setTag(0);
+
+        mNorthGate = mMap.addMarker(new MarkerOptions()
+                .position(NorthGate)
+                .title("بوابة شمالية 3"));
+        mNorthGate.setTag(0);
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                LatLng position = marker.getPosition();
+                Toast.makeText(MapWithMarker.this, position.latitude + " " + position.longitude, Toast.LENGTH_SHORT).show();
+                 logitude = position.longitude;
+                latitude = position.latitude;
+                place = marker.getTitle();
+                return false;
+            }
+        });
+
+
+
+
+
 
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
@@ -237,9 +248,7 @@ Double latitude;
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
-
-
-        }
+    }
 
     /**
      * Gets the current location of the device, and positions the map's camera.
@@ -262,6 +271,7 @@ Double latitude;
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(mLastKnownLocation.getLatitude(),
                                                 mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
@@ -273,7 +283,7 @@ Double latitude;
                     }
                 });
             }
-        } catch (SecurityException e) {
+        } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
         }
     }
@@ -339,9 +349,10 @@ Double latitude;
 
             // Get the likely places - that is, the businesses and other points of interest that
             // are the best match for the device's current location.
-            @SuppressWarnings("MissingPermission") final Task<FindCurrentPlaceResponse> placeResult =
+            @SuppressWarnings("MissingPermission") final
+            Task<FindCurrentPlaceResponse> placeResult =
                     mPlacesClient.findCurrentPlace(request);
-            placeResult.addOnCompleteListener(new OnCompleteListener<FindCurrentPlaceResponse>() {
+            placeResult.addOnCompleteListener (new OnCompleteListener<FindCurrentPlaceResponse>() {
                 @Override
                 public void onComplete(@NonNull Task<FindCurrentPlaceResponse> task) {
                     if (task.isSuccessful() && task.getResult() != null) {
@@ -377,18 +388,11 @@ Double latitude;
 
                         // Show a dialog offering the user the list of likely places, and add a
                         // marker at the selected place.
-                        MapsActivity.this.openPlacesDialog();
-                    } else {
+                        MapWithMarker.this.openPlacesDialog();
+                    }
+                    else {
                         Log.e(TAG, "Exception: %s", task.getException());
                     }
-                 /*   createOrder.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            createOrderr();
-
-
-                        }
-                    });*/
                 }
             });
         } else {
@@ -458,47 +462,8 @@ Double latitude;
                 mLastKnownLocation = null;
                 getLocationPermission();
             }
-        } catch (SecurityException e) {
+        } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
         }
-
-
     }
-
-    public void setOnMapClick(Button button ) {
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = getIntent();
-                order Order = (order) intent.getSerializableExtra("order_data");
-                Order.setLatitude(latitude);
-                Order.setLongitude(longitude);
-                intent.putExtra("order_data", Order);
-                intent.setClass(MapsActivity.this,LocationForm.class);
-                startActivity(intent);
-
-            }
-        });
-
-    }
-    public void setOnsecondMapClick(Button button ) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = getIntent();
-                order Order = (order) intent.getSerializableExtra("order_data");
-                intent.putExtra("order_data", Order);
-                intent.setClass(MapsActivity.this, MapWithMarker.class);
-                startActivity(intent);
-            }
-        });
-
-
-
-
-    }}
-
-
-
+}

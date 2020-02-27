@@ -12,6 +12,8 @@ public class order implements Serializable {
      private String Description;
     private String resturantName;
     private String locationDes;
+    private Double Longitude;
+    private Double Latitude;
 
     public void setLocationDes(String locationDes) {
         this.locationDes = locationDes;
@@ -26,8 +28,24 @@ public class order implements Serializable {
         this.date = date;
     }
 
+    public void setLongitude(Double longitude) {
+        Longitude = longitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        Latitude = latitude;
+    }
+
     public String getDate() {
         return date;
+    }
+
+    public Double getLongitude() {
+        return Longitude;
+    }
+
+    public Double getLatitude() {
+        return Latitude;
     }
 
     public order() {
@@ -41,13 +59,15 @@ public class order implements Serializable {
         this.resturantName = resturantName;
     }
 
-    public order(String id,  String name, String moblie, String Date, String description, String locationDes ) {
+    public order(String id,  String name, String moblie, String Date, String description, String locationDes , Double longitude,Double latitude ) {
         this.id = id;
         resturantName = name;
         this.moblie = moblie;
         date = Date;
         Description = description;
         this.locationDes = locationDes;
+        Latitude = latitude;
+        Longitude = longitude;
     }
 
     public String getId() {

@@ -30,6 +30,9 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name=".providerMap"
+            android:label="@string/title_activity_provider_map"></activity>
+        <activity
             android:name=".MapWithMarker"
             android:label="@string/title_activity_map_with_marker" />
         <activity android:name=".LocationForm" />

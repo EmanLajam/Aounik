@@ -1,10 +1,17 @@
 package com.example.aounikApp;
 
+import androidx.fragment.app.FragmentActivity;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Point;
 import android.location.Location;
 import android.os.Bundle;
 import android.location.LocationListener;
@@ -29,12 +36,16 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -50,17 +61,14 @@ import java.util.List;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * An activity that displays a map showing the place at the device's current location.
- */
-public class MapsActivity extends AppCompatActivity
-        implements OnMapReadyCallback {
 
-    Button Current;
-    Button markerBtn;
+public class providerMap extends FragmentActivity implements OnMapReadyCallback {
+
     Double longitude;
     Double latitude;
-
+    Marker reqMarker;
+Double reqLat;
+Double reqLng;
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
     private LocationListener locationListener;
@@ -111,7 +119,7 @@ public class MapsActivity extends AppCompatActivity
         }
 
         // Retrieve the content view that renders the map.
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_provider_map);
 
         // Construct a PlacesClient
         Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
@@ -145,14 +153,9 @@ public class MapsActivity extends AppCompatActivity
             longitude = location.getLongitude();
             latitude = location.getLatitude();
         }
-
-        Current = (Button) findViewById(R.id.current);
-        markerBtn = (Button) findViewById(R.id.anotherPlace) ;
-       setOnMapClick(Current);
-       setOnsecondMapClick(markerBtn);
+        Toast.makeText(providerMap.this, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
 
     }
-
     /**
      * Saves the state of the map when the activity is paused.
      */
@@ -198,6 +201,7 @@ public class MapsActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
+        LatLng current = new LatLng(latitude,longitude);
 
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
@@ -223,6 +227,7 @@ public class MapsActivity extends AppCompatActivity
 
                 return infoWindow;
             }
+
         });
 
         // Prompt the user for permission.
@@ -234,8 +239,22 @@ public class MapsActivity extends AppCompatActivity
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
 
+        Intent intent = getIntent();
+        reqLat = intent.getDoubleExtra("latitude",0.0);
+        reqLng = intent.getDoubleExtra("longitude",0.0);
+        LatLng marker = new LatLng(reqLat,reqLng);
 
-        }
+        reqMarker = mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(reqLat,reqLng))
+                .visible(true)
+         .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_pink)));
+
+        mMap.addPolyline(new PolylineOptions().add(
+                 current,
+                 marker
+        ).width(10)
+        .color(Color.GREEN));
+    }
 
     /**
      * Gets the current location of the device, and positions the map's camera.
@@ -373,7 +392,7 @@ public class MapsActivity extends AppCompatActivity
 
                         // Show a dialog offering the user the list of likely places, and add a
                         // marker at the selected place.
-                        MapsActivity.this.openPlacesDialog();
+                        providerMap.this.openPlacesDialog();
                     } else {
                         Log.e(TAG, "Exception: %s", task.getException());
                     }
@@ -461,40 +480,10 @@ public class MapsActivity extends AppCompatActivity
 
     }
 
-    public void setOnMapClick(Button button ) {
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Intent intent = getIntent();
-                order Order = (order) intent.getSerializableExtra("order_data");
-                Order.setLatitude(latitude);
-                Order.setLongitude(longitude);
-                intent.putExtra("order_data", Order);
-                intent.setClass(MapsActivity.this,LocationForm.class);
-                startActivity(intent);
-
-            }
-        });
 
     }
-    public void setOnsecondMapClick(Button button ) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = getIntent();
-                order Order = (order) intent.getSerializableExtra("order_data");
-                intent.putExtra("order_data", Order);
-                intent.setClass(MapsActivity.this, MapWithMarker.class);
-                startActivity(intent);
-            }
-        });
-
-
-
-
-    }}
 
 
 

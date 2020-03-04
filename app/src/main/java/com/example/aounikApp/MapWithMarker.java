@@ -1,9 +1,12 @@
 package com.example.aounikApp;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -27,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -56,8 +60,11 @@ public class MapWithMarker extends AppCompatActivity
     private Marker mMycollege;
     private Marker mBuilding420;
     private Marker mNorthGate;
+    private Marker current;
     Double logitude;
     Double latitude;
+    Double Currentlogitude;
+    Double Currentlatitude;
     String place;
     // The entry point to the Places API.
     private PlacesClient mPlacesClient;
@@ -132,6 +139,29 @@ public class MapWithMarker extends AppCompatActivity
                }
             }
        });
+
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        if (lm.getLastKnownLocation(LocationManager.GPS_PROVIDER) != null) {
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            Currentlogitude = location.getLongitude();
+            Currentlatitude = location.getLatitude();
+        } else {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                return;
+            }
+            Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Currentlogitude = location.getLongitude();
+            Currentlatitude = location.getLatitude();
+        }
+//        current = mMap.addMarker(new MarkerOptions()
+//                .position(new LatLng(Currentlatitude, Currentlogitude))
+//                .title("أنت هنا").icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_pink) ));
+//        mMycollege.setTag(0);
   }
 
     /**
@@ -184,17 +214,17 @@ public class MapWithMarker extends AppCompatActivity
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(mycolleage));
         mMycollege = mMap.addMarker(new MarkerOptions()
                 .position(myCollege)
-                .title("كلية الحاسبات وتقنية المعلومات"));
+                .title("كلية الحاسبات وتقنية المعلومات").icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_green) ));
         mMycollege.setTag(0);
 
         mBuilding420 = mMap.addMarker(new MarkerOptions()
                 .position(Building420)
-                .title("مبنى 420"));
+                .title("مبنى 420").icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_green) ));
         mBuilding420.setTag(0);
 
         mNorthGate = mMap.addMarker(new MarkerOptions()
                 .position(NorthGate)
-                .title("بوابة شمالية 3"));
+                .title("بوابة شمالية 3").icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_green) ));
         mNorthGate.setTag(0);
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {

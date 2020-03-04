@@ -8,4 +8,5 @@
     <string name="send">Send</string>
     <string name="title_activity_map_with_marker">Biliuding</string>
     <string name="title_activity_marker">Map</string>
+    <string name="title_activity_provider_map">Map</string>
 </resources>

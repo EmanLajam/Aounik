@@ -253,7 +253,7 @@ Double reqLng;
                  current,
                  marker
         ).width(10)
-        .color(Color.GREEN));
+        .color(Color.RED));
     }
 
     /**

@@ -31,6 +31,9 @@ public class OrderPage extends AppCompatActivity {
     Button goToMap;
     DatabaseReference databaseReference;
     FirebaseDatabase database;
+    private DatabaseReference mDatabase;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +57,26 @@ final Intent intent = getIntent();
         des = intent.getStringExtra("des");
         textView3.setText(des);
 
+        mDatabase= FirebaseDatabase.getInstance().getReference().child("Restaurantsmap");
+
+
         goToMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+              /*  Intent ii = new Intent(OrderPage.this, reemMap.class);
+                ii.putExtra("name", name);
+                startActivity(ii);
+                */
                 latitude = intent.getDoubleExtra("latitude",0.0);
                 longitude = intent.getDoubleExtra("longitude", 0.0);
-            intent.setClass(OrderPage.this , providerMap.class);
-            startActivity(intent);
+                intent.setClass(OrderPage.this , providerMap.class);
+                intent.putExtra("name", name);
+                startActivity(intent);
+
+
             }
         });
+
 
     }
 

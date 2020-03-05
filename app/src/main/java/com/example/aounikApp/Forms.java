@@ -26,6 +26,7 @@ public class Forms extends AppCompatActivity {
     private TextView resturantNamef;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +37,14 @@ public class Forms extends AppCompatActivity {
         resturantNamef = (TextView) findViewById(R.id.newrequest);
         resturantNamef.setText(result);
 
+
         phone = (EditText) findViewById(R.id.phoneID);
         desc = (EditText) findViewById(R.id.desID);
         date = (EditText) findViewById(R.id.dateID);
         send = (TextView) findViewById(R.id.sendID);
         resturantName = (TextView) findViewById(R.id.newrequest);
+
+
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +55,8 @@ public class Forms extends AppCompatActivity {
               Order.setDescription(desc.getText().toString());
               Order.setResturantName( resturantNamef.getText().toString());
                 if (!Order.getDate().isEmpty() && !Order.getDescription().isEmpty()) {
+
+
               Intent intent = new Intent(Forms.this, MapsActivity.class);
               intent.putExtra("order_data", Order);
               startActivity(intent);
@@ -61,6 +67,9 @@ public class Forms extends AppCompatActivity {
                 }}
 
         });
+
+
+
 
 
     }

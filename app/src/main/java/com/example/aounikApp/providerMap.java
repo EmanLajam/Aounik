@@ -58,15 +58,21 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 
 import java.util.Arrays;
 import java.util.List;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class providerMap extends FragmentActivity implements OnMapReadyCallback {
 
-    Double longitude;
-    Double latitude;
+    Double longitude =0.0 ;
+    Double latitude =0.0;
     Marker reqMarker;
+    private DatabaseReference mUsers;
+    Marker marker;
 Double reqLat;
 Double reqLng;
     private static final String TAG = MapsActivity.class.getSimpleName();
@@ -132,6 +138,9 @@ Double reqLng;
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        mUsers= FirebaseDatabase.getInstance().getReference("Restaurantsmap");
+        mUsers.push().setValue(marker);
 
         // Getting latitude of the current location
 
@@ -201,6 +210,49 @@ Double reqLng;
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
+
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mUsers.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Intent i = getIntent();
+                final String result = i.getStringExtra("name");
+              // Toast.makeText(providerMap.this, result, Toast.LENGTH_LONG).show();
+
+
+                for (DataSnapshot s : dataSnapshot.getChildren()) {
+                    if (s.getKey().equals(result)) {
+
+                        Double latitude = s.child("lat").getValue(Double.class);
+                        Double longitude = s.child("lon").getValue(Double.class);
+                        String name = s.child("name").getValue(String.class);
+                      Toast.makeText(providerMap.this, name, Toast.LENGTH_LONG).show();
+
+
+                        //   UserInformation user = s.getValue(UserInformation.class);
+                        LatLng location = new LatLng(latitude, longitude);
+                        mMap.addMarker(new MarkerOptions().position(location).title(name)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                    }
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
         LatLng current = new LatLng(latitude,longitude);
 
         // Use a custom info window adapter to handle multiple lines of text in the

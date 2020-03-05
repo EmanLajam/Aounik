@@ -73,8 +73,13 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
     Marker reqMarker;
     private DatabaseReference mUsers;
     Marker marker;
-Double reqLat;
-Double reqLng;
+    String place;
+    Marker restMarker;
+    Double reqLat;
+    Double reqLng;
+    Double ResturantLat;
+    Double ResturantLog;
+    int price = 0;
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
     private LocationListener locationListener;
@@ -164,6 +169,7 @@ Double reqLng;
         }
         Toast.makeText(providerMap.this, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
 
+
     }
     /**
      * Saves the state of the map when the activity is paused.
@@ -224,17 +230,93 @@ Double reqLng;
                 for (DataSnapshot s : dataSnapshot.getChildren()) {
                     if (s.getKey().equals(result)) {
 
-                        Double latitude = s.child("lat").getValue(Double.class);
-                        Double longitude = s.child("lon").getValue(Double.class);
+                        Double ResturantLat = s.child("lat").getValue(Double.class);
+                     Double ResturantLog = s.child("lon").getValue(Double.class);
                         String name = s.child("name").getValue(String.class);
                       Toast.makeText(providerMap.this, name, Toast.LENGTH_LONG).show();
 
 
                         //   UserInformation user = s.getValue(UserInformation.class);
-                        LatLng location = new LatLng(latitude, longitude);
-                        mMap.addMarker(new MarkerOptions().position(location).title(name)).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                        LatLng ResLocation = new LatLng(ResturantLat, ResturantLog);
+                        mMap.addMarker(new MarkerOptions().position(ResLocation).title(name)).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_green));
+                        LatLng current = new LatLng(latitude,longitude);
+
+                        Intent intent = getIntent();
+                        reqLat = intent.getDoubleExtra("latitude",0.0);
+                        reqLng = intent.getDoubleExtra("longitude",0.0);
+                        String place = intent.getStringExtra("place");
+                        LatLng marker = new LatLng(reqLat,reqLng);
+
+                        reqMarker = mMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(reqLat,reqLng)).title(place)
+                                .visible(true)
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_pink)));
+
+                        // draw line between three places
+                        mMap.addPolyline(new PolylineOptions().add(
+                                current,
+                                ResLocation,
+                                marker
+                        ).width(10)
+                                .color(Color.RED));
+
+
+                        Location loc1 = new Location("");
+                        loc1.setLatitude(latitude);
+                        loc1.setLongitude(longitude);
+
+                        Location loc2 = new Location("");
+                        loc2.setLatitude(ResturantLat);
+                        loc2.setLongitude(ResturantLog);
+
+                        Location loc3 = new Location("");
+                        loc3.setLatitude(reqLat);
+                        loc3.setLongitude(reqLng);
+
+                        float distance = loc1.distanceTo(loc2);
+                        float distance2 = loc2.distanceTo(loc3);
+                        float total = (distance+distance2)/1000;
+                        reqMarker.setSnippet("Distance = "+ total);
+
+                        int speed=5;
+                        float time = (total/speed)*60;
+                        Toast.makeText(providerMap.this, "Time = "+ time, Toast.LENGTH_LONG).show();
+
+                        //estmation price
+
+                        if (time <= 5) {
+                            price = 5;
+                        }else
+                        if (time <= 10) {
+                            price = 6;
+                        }else
+                         if(time <=15){
+                            price = 7;
+                         }else
+                        if (time <= 20){
+                            price = 8;
+                        }else
+                            if (time <= 25){
+                            price = 9;
+                        }else {
+                            price = 10;
+                            }
+                        Toast.makeText(providerMap.this, "price = "+ price, Toast.LENGTH_LONG).show();
+
+//                        Intent intent1 = new Intent();
+//                        // intent1.putExtra("time", time);
+//                        intent1.putExtra("price", price);
+//                        setResult(RESULT_OK, intent1);
+//                        finish();
+
                     }
+
+
                 }
+
+
+
+
 
             }
             @Override
@@ -242,18 +324,6 @@ Double reqLng;
 
             }
         });
-
-
-
-
-
-
-
-
-
-
-
-        LatLng current = new LatLng(latitude,longitude);
 
         // Use a custom info window adapter to handle multiple lines of text in the
         // info window contents.
@@ -291,22 +361,7 @@ Double reqLng;
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
 
-        Intent intent = getIntent();
-        reqLat = intent.getDoubleExtra("latitude",0.0);
-        reqLng = intent.getDoubleExtra("longitude",0.0);
-        LatLng marker = new LatLng(reqLat,reqLng);
 
-        reqMarker = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(reqLat,reqLng))
-                .visible(true)
-         .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_pink)));
-
-        // draw line between three places
-        mMap.addPolyline(new PolylineOptions().add(
-                 current,
-                 marker
-        ).width(10)
-        .color(Color.RED));
     }
 
     /**

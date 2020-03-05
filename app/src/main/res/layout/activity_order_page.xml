@@ -39,7 +39,7 @@
         app:srcCompat="@drawable/order_det_des" />
 
     <TextView
-        android:id="@+id/name_req"
+        android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
@@ -47,6 +47,8 @@
         android:text="name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+    
+
 
     <TextView
         android:id="@+id/Restaurant_name"

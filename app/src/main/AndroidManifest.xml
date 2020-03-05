@@ -30,9 +30,6 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".reemMap"
-            android:label="@string/title_activity_reem_map"></activity>
-        <activity
             android:name=".providerMap"
             android:label="@string/title_activity_provider_map" />
         <activity

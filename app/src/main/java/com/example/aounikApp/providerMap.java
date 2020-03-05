@@ -249,6 +249,7 @@ Double reqLng;
                 .visible(true)
          .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_pink)));
 
+        // draw line between three places
         mMap.addPolyline(new PolylineOptions().add(
                  current,
                  marker

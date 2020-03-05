@@ -50,7 +50,6 @@ public class OrderPage extends AppCompatActivity {
         textView3 = (TextView) findViewById(R.id.description_req);
         textView4 = (TextView) findViewById(R.id.Restaurant_name);
         textView5 = (TextView) findViewById(R.id.time);
-        textView6 = (TextView) findViewById(R.id.price);
         final Intent intent = getIntent();
         name = intent.getStringExtra("id");
         textView4.setText(name);
@@ -84,6 +83,7 @@ public class OrderPage extends AppCompatActivity {
 
 
     }
+
     //get data from
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

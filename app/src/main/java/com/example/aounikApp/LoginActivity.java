@@ -38,9 +38,17 @@ public class LoginActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Verify(edtID.getText().toString(),edtPassword.getText().toString());
 
+                if (edtPassword.getText().toString().trim().isEmpty()|| edtID.getText().toString().trim().isEmpty()
+                        ) {
+                    Toast.makeText(LoginActivity.this, "please fill the empty fields .", Toast.LENGTH_SHORT).show();
+                }
+
             }
+
+
         });
 
 
@@ -51,26 +59,30 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void Verify(final String id, final String password) {
+
+
         users.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(id).exists()){
-                    if(!id.isEmpty()){
+                if (dataSnapshot.child(id).exists()) {
+                    if (!id.isEmpty()) {
                         User Login = dataSnapshot.child(id).getValue(User.class);
-                        if(Login.getPassword().equals(password)){
-                            Toast.makeText(LoginActivity.this,"Success Login",Toast.LENGTH_SHORT).show();
-                           Intent s = new Intent(getApplicationContext(),Roles.class);
-                           startActivity(s);
+                        if (Login.getPassword().equals(password)) {
+                            Toast.makeText(LoginActivity.this, "Success Login", Toast.LENGTH_SHORT).show();
+                            Intent s = new Intent(getApplicationContext(), Roles.class);
+                            startActivity(s);
+                        } else {
+                            Toast.makeText(LoginActivity.this, "password is wrong", Toast.LENGTH_SHORT).show();
+
                         }
-                        else {
-                            Toast.makeText(LoginActivity.this,"password is wrong",Toast.LENGTH_SHORT).show();
-                        }
+
                     }
+                }
                     else {
                         Toast.makeText(LoginActivity.this," Username is Not Register",Toast.LENGTH_SHORT).show();
                     }
 
-                }
+
             }
 
             @Override

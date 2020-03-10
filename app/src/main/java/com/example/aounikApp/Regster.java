@@ -67,7 +67,7 @@ public class Regster extends AppCompatActivity {
                         ||edtMail.getText().toString().trim().isEmpty()||editID.getText().toString().trim().isEmpty()) {
                     Toast.makeText(Regster.this,"please fill the empty fields .",Toast.LENGTH_SHORT).show();
 
-                
+
 
                /* if (edtPassword.getText().toString().trim().isEmpty()) {
                     Toast.makeText(Regster.this,"Password is empty. Please fill it in .",Toast.LENGTH_SHORT).show();

@@ -125,6 +125,26 @@ public class MapsActivity extends AppCompatActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
+
+        Current = (Button) findViewById(R.id.current);
+        markerBtn = (Button) findViewById(R.id.anotherPlace) ;
+       setOnMapClick(Current);
+       setOnsecondMapClick(markerBtn);
+
+    }
+
+
+    /**
+     * Saves the state of the map when the activity is paused.
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (mMap != null) {
+            outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
+            outState.putParcelable(KEY_LOCATION, mLastKnownLocation);
+            super.onSaveInstanceState(outState);
+        }
         // Getting latitude of the current location
 
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -144,24 +164,6 @@ public class MapsActivity extends AppCompatActivity
             Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             longitude = location.getLongitude();
             latitude = location.getLatitude();
-        }
-
-        Current = (Button) findViewById(R.id.current);
-        markerBtn = (Button) findViewById(R.id.anotherPlace) ;
-       setOnMapClick(Current);
-       setOnsecondMapClick(markerBtn);
-
-    }
-
-    /**
-     * Saves the state of the map when the activity is paused.
-     */
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        if (mMap != null) {
-            outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
-            outState.putParcelable(KEY_LOCATION, mLastKnownLocation);
-            super.onSaveInstanceState(outState);
         }
     }
 
@@ -472,6 +474,7 @@ public class MapsActivity extends AppCompatActivity
                 Order.setLatitude(latitude);
                 Order.setLongitude(longitude);
                 intent.putExtra("order_data", Order);
+                intent.getStringExtra("user_id");
                 intent.setClass(MapsActivity.this,LocationForm.class);
                 startActivity(intent);
 

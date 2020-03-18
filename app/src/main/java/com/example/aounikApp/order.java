@@ -1,12 +1,10 @@
 package com.example.aounikApp;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
 
 public class order implements Serializable {
       String id;
+      String UserID;
      private String moblie;
      private String date;
      private String Description;
@@ -59,7 +57,15 @@ public class order implements Serializable {
         this.resturantName = resturantName;
     }
 
-    public order(String id,  String name, String moblie, String Date, String description, String locationDes , Double longitude,Double latitude ) {
+    public String getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(String userID) {
+        UserID = userID;
+    }
+
+    public order(String id, String name, String moblie, String Date, String description, String locationDes , Double longitude, Double latitude , String userID) {
         this.id = id;
         resturantName = name;
         this.moblie = moblie;
@@ -68,6 +74,7 @@ public class order implements Serializable {
         this.locationDes = locationDes;
         Latitude = latitude;
         Longitude = longitude;
+        UserID = userID;
     }
 
     public String getId() {

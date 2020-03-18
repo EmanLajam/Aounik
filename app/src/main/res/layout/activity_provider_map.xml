@@ -1,8 +1,25 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.example.aounikApp.providerMap"
+tools:layout="@android:layout/simple_spinner_dropdown_item">
+
+<fragment
     android:id="@+id/map"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.aounikApp.providerMap" />
+    tools:context=".MapsWithMarker"
+    tools:layout="@android:layout/simple_spinner_dropdown_item" />
+
+
+<Button
+    android:id="@+id/go"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="600dp"
+
+    android:text="Go To next" />
+
+</FrameLayout>

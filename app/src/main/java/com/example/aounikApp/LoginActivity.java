@@ -44,7 +44,11 @@ public class LoginActivity extends AppCompatActivity {
                 if (edtPassword.getText().toString().trim().isEmpty()|| edtID.getText().toString().trim().isEmpty()
                         ) {
                     Toast.makeText(LoginActivity.this, "please fill the empty fields .", Toast.LENGTH_SHORT).show();
+
+
+
                 }
+
 
             }
 
@@ -70,6 +74,9 @@ public class LoginActivity extends AppCompatActivity {
                         if (Login.getPassword().equals(password)) {
                             Toast.makeText(LoginActivity.this, "Success Login", Toast.LENGTH_SHORT).show();
                             Intent s = new Intent(getApplicationContext(), Roles.class);
+                            User user = new User();
+                            String user_id = user.getID();
+                            s.putExtra("user_id", user_id);
                             startActivity(s);
                         } else {
                             Toast.makeText(LoginActivity.this, "password is wrong", Toast.LENGTH_SHORT).show();

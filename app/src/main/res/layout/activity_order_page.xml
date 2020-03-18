@@ -68,7 +68,7 @@
         android:layout_marginTop="40dp"
         android:text="Mobile number"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_req" />
+        app:layout_constraintTop_toBottomOf="@+id/Restaurant_name" />
 
     <TextView
         android:id="@+id/Date_order"

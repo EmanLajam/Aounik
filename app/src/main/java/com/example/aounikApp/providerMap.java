@@ -79,6 +79,7 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
     Double reqLng;
     Double ResturantLat;
     Double ResturantLog;
+    Button go;
     int price = 0;
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
@@ -584,7 +585,14 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
         } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
-
+        go = (Button)findViewById(R.id.go);
+        go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent go = new Intent(providerMap.this,IamReady.class);
+                startActivity(go);
+            }
+        });
 
     }
 

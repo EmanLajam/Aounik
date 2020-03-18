@@ -1,9 +1,11 @@
 package com.example.aounikApp;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private String username;
-    private String ID;
+     String ID;
     private String password;
     private String email;
     private String phone;

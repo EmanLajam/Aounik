@@ -22,7 +22,8 @@ public class Roles extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent s = new Intent(getApplicationContext(), Services.class);
-               startActivity(s);
+                s.getStringExtra("user_id");
+                startActivity(s);
 
             }
 

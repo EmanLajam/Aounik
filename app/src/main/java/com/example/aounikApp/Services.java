@@ -23,6 +23,7 @@ public class Services extends AppCompatActivity {
             public void onClick(View v) {
 
                Intent ResturantList = new Intent(getApplicationContext(), Restaurants.class);
+               ResturantList.getStringExtra("user_id");
                 startActivity(ResturantList);
             }
         });

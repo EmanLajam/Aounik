@@ -18,7 +18,7 @@ public class LocationForm extends AppCompatActivity {
     Button send;
     DatabaseReference databaseReference;
     FirebaseDatabase database;
-
+    String user_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +41,8 @@ public class LocationForm extends AppCompatActivity {
                 Order.setLocationDes(locationDes);
                 String id = databaseReference.push().getKey();
                 Order.id = id;
+                user_id = intent.getStringExtra("user_id");
+                Order.setUserID(user_id);
                 databaseReference.child(id).setValue(Order);
                 Toast.makeText(LocationForm.this, "Done", Toast.LENGTH_LONG).show();
             }

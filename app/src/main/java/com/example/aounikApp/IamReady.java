@@ -49,10 +49,7 @@ public class IamReady extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iam_ready);
-        OneSignal.startInit(this)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
+
 
     //    database = FirebaseDatabase.getInstance();
      //   databaseReference = database.getReference("Users");
@@ -60,7 +57,7 @@ public class IamReady extends AppCompatActivity {
 
         Intent intent = getIntent();
          userId = intent.getStringExtra("user_id");
-        OneSignal.sendTag("user_id",userId);
+
     }
 
     public void runtimeEnableAutoInit(){
@@ -87,11 +84,7 @@ public class IamReady extends AppCompatActivity {
                     String send_email;
 
                     //This is a Simple Logic to Send Notification different Device Programmatically....
-                    if (userId.equals("1617367")) {
-                        send_email = "111";
-                    } else {
-                        send_email = "1617367";
-                    }
+
 
                     try {
                         String jsonResponse;
@@ -103,16 +96,17 @@ public class IamReady extends AppCompatActivity {
                         con.setDoInput(true);
 
                         con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                        con.setRequestProperty("Authorization", "Basic YTUzMWE2M2UtMTZiYy00M2FhLWEyMjItYWQ5YWI1MDgzM2U2");
+                        con.setRequestProperty("Authorization", "Basic MGEzOWVmYmEtYzQ5My00ZDkxLTgyNjctZmVkZjlkYjAzYmEy");
                         con.setRequestMethod("POST");
 
                         String strJsonBody = "{"
-                                + "\"app_id\": \"0523d5af-d75a-4916-a8dd-3e9109e0f10b\","
+                                + "\"app_id\": \"a036b1a7-595e-410d-b5b3-40a788cf6834\","
 
-                                + "\"filters\": [{\"field\": \"tag\", \"key\": \"User_ID\", \"relation\": \"=\", \"value\": \"" + send_email + "\"}],"
+                                +   "\"include_player_ids\": [\"" + getIntent().getStringExtra("idOnesignal") + "\"],"
+
 
                                 + "\"data\": {\"foo\": \"bar\"},"
-                                + "\"contents\": {\"en\": \"English Message\"}"
+                                + "\"contents\": {\"en\": \"I am ready to deliever\"}"
                                 + "}";
 
 

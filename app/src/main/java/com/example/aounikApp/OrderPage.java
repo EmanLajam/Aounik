@@ -73,8 +73,10 @@ public class OrderPage extends AppCompatActivity {
                 latitude = intent.getDoubleExtra("latitude", 0.0);
                 longitude = intent.getDoubleExtra("longitude", 0.0);
                 String place = intent.getStringExtra("place");
+                String idOnesignal = intent.getStringExtra("idOnesignal");
                 intent.setClass(OrderPage.this, providerMap.class);
                 intent.putExtra("name", name);
+                intent.putExtra("idOnesignal", idOnesignal);
                 startActivityForResult(intent, 1);
 
 

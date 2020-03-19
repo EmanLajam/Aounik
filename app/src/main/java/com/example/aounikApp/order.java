@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class order implements Serializable {
       String id;
+      String OnesignalID;
       String UserID;
      private String moblie;
      private String date;
@@ -65,8 +66,9 @@ public class order implements Serializable {
         UserID = userID;
     }
 
-    public order(String id, String name, String moblie, String Date, String description, String locationDes , Double longitude, Double latitude , String userID) {
+    public order(String id, String OnesignalID, String name, String moblie, String Date, String description, String locationDes , Double longitude, Double latitude , String userID) {
         this.id = id;
+        this.OnesignalID = OnesignalID;
         resturantName = name;
         this.moblie = moblie;
         date = Date;
@@ -99,5 +101,13 @@ public class order implements Serializable {
 
     public void setDescription(String description) {
         Description = description;
+    }
+
+    public String getOnesignalID() {
+        return OnesignalID;
+    }
+
+    public void setOnesignalID(String onesignalID) {
+        OnesignalID = onesignalID;
     }
 }

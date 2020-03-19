@@ -47,6 +47,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                 Intent intent = new Intent(context,OrderPage.class);
                 intent.putExtra("id",orders.get(position).getResturantName());
                 intent.putExtra("date",orders.get(position).getDate());
+                intent.putExtra("idOnesignal",orders.get(position).getOnesignalID());
                 intent.putExtra("phone",orders.get(position).getMoblie());
                 intent.putExtra("des",orders.get(position).getDescription());
                 intent.putExtra("latitude",orders.get(position).getLatitude());

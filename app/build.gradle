@@ -21,7 +21,7 @@ android {
         manifestPlaceholders = [
                 onesignal_app_id: 'a036b1a7-595e-410d-b5b3-40a788cf6834',
                 // Project number pulled from dashboard, local value is ignored.
-                onesignal_google_project_number: 'REMOTE'
+                onesignal_google_project_number: '857636701159'
         ]
         applicationId "com.example.aounik"
         minSdkVersion 22
@@ -50,7 +50,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.libraries.places:places:2.1.0'
-    implementation 'com.google.firebase:firebase-messaging:20.1.2'
     implementation 'com.google.firebase:firebase-analytics:17.2.3'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'

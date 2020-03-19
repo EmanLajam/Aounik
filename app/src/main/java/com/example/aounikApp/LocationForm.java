@@ -41,6 +41,7 @@ public class LocationForm extends AppCompatActivity {
                 Order.setLocationDes(locationDes);
                 String id = databaseReference.push().getKey();
                 Order.id = id;
+                Order.setOnesignalID(OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getUserId());
                 user_id = intent.getStringExtra("user_id");
                 Order.setUserID(user_id);
                 databaseReference.child(id).setValue(Order);

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,6 +25,9 @@ public class OrderPage extends AppCompatActivity {
     TextView textView4;
     TextView textView5;
     TextView textView6;
+
+    public static String idOnesignal;
+
 
     String phone;
     String des;
@@ -73,9 +77,10 @@ public class OrderPage extends AppCompatActivity {
                 latitude = intent.getDoubleExtra("latitude", 0.0);
                 longitude = intent.getDoubleExtra("longitude", 0.0);
                 String place = intent.getStringExtra("place");
-                String idOnesignal = intent.getStringExtra("idOnesignal");
+                idOnesignal = intent.getStringExtra("idOnesignal");
                 intent.setClass(OrderPage.this, providerMap.class);
                 intent.putExtra("name", name);
+                Log.e("idOnesignalqqqq", idOnesignal);
                 intent.putExtra("idOnesignal", idOnesignal);
                 startActivityForResult(intent, 1);
 

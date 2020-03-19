@@ -41,7 +41,6 @@ public class IamReady extends AppCompatActivity {
     Button ready;
     DatabaseReference databaseReference;
     FirebaseDatabase database;
-    MyFirebaseMessagingService myFirebaseMessagingService;
     static  String userId;
     private static final String TAG = "IamReady";
 
@@ -71,7 +70,9 @@ public class IamReady extends AppCompatActivity {
     private void sendNotification()
     {
 
-        Toast.makeText(this, "Current Recipients is : 1617367 ( Just For Demo )", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "Current Recipients is : 1617367 ( Just For Demo )", Toast.LENGTH_SHORT).show();
+      // Toast.makeText(this, OrderPage.idOnesignal, Toast.LENGTH_SHORT).show();
+        Log.e("asdsa", OrderPage.idOnesignal);
 
         AsyncTask.execute(new Runnable() {
             @Override
@@ -96,14 +97,14 @@ public class IamReady extends AppCompatActivity {
                         con.setDoInput(true);
 
                         con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                        con.setRequestProperty("Authorization", "Basic MGEzOWVmYmEtYzQ5My00ZDkxLTgyNjctZmVkZjlkYjAzYmEy");
+                        con.setRequestProperty("Authorization", "Basic MzhlYWRkNzQtZTdjOC00NGE3LTg2OWUtM2E1ZWZhMmFkNzc4");
                         con.setRequestMethod("POST");
 
                         String strJsonBody = "{"
-                                + "\"app_id\": \"a036b1a7-595e-410d-b5b3-40a788cf6834\","
+                                + "\"app_id\": \"bc201ed5-a81c-4e8e-ad8d-238136133934\","
 
-                                +   "\"include_player_ids\": [\"" + getIntent().getStringExtra("idOnesignal") + "\"],"
-
+                                 +   "\"include_player_ids\": [\"" + OrderPage.idOnesignal + "\"],"
+                             //   +   "\"included_segments\": [\"All\"],"
 
                                 + "\"data\": {\"foo\": \"bar\"},"
                                 + "\"contents\": {\"en\": \"I am ready to deliever\"}"
@@ -139,6 +140,59 @@ public class IamReady extends AppCompatActivity {
                 }
             }
         });
+      //  Log.e("asdsa1", "\"include_player_ids\": [\"" + OrderPage.idOnesignal + "\"],");
+       /* try {
+            String jsonResponse;
+
+            URL url = new URL("https://onesignal.com/api/v1/notifications");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setUseCaches(false);
+            con.setDoOutput(true);
+            con.setDoInput(true);
+
+            con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            con.setRequestProperty("Authorization", "Basic MzhlYWRkNzQtZTdjOC00NGE3LTg2OWUtM2E1ZWZhMmFkNzc4");
+            con.setRequestMethod("POST");
+
+            String strJsonBody = "{"
+                    + "\"app_id\": \"bc201ed5-a81c-4e8e-ad8d-238136133934\","
+
+                   // +   "\"include_player_ids\": [\"" + OrderPage.idOnesignal + "\"],"
+                    +   "\"included_segments\": [\"All\"],"
+
+                    + "\"data\": {\"foo\": \"bar\"},"
+                    + "\"contents\": {\"en\": \"I am ready to deliever\"}"
+                    + "}";
+
+
+            System.out.println("strJsonBody:\n" + strJsonBody);
+
+            byte[] sendBytes = strJsonBody.getBytes("UTF-8");
+            con.setFixedLengthStreamingMode(sendBytes.length);
+
+            OutputStream outputStream = con.getOutputStream();
+            outputStream.write(sendBytes);
+
+            int httpResponse = con.getResponseCode();
+            System.out.println("httpResponse: " + httpResponse);
+
+            if (httpResponse >= HttpURLConnection.HTTP_OK
+                    && httpResponse < HttpURLConnection.HTTP_BAD_REQUEST) {
+                Scanner scanner = new Scanner(con.getInputStream(), "UTF-8");
+                jsonResponse = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
+                scanner.close();
+            } else {
+                Scanner scanner = new Scanner(con.getErrorStream(), "UTF-8");
+                jsonResponse = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
+                scanner.close();
+            }
+            System.out.println("jsonResponse:\n" + jsonResponse);
+
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+
+        */
     }
 }
     /*

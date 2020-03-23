@@ -20,9 +20,6 @@ public class Forms extends AppCompatActivity {
     public EditText date;
     public TextView send;
     private TextView resturantName;
-    FirebaseDatabase database;
-    DatabaseReference databaseReference;
-    DatabaseReference databaseReference2;
     private TextView resturantNamef;
 
 

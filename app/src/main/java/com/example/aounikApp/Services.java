@@ -9,6 +9,7 @@ import android.widget.Button;
 
 public class Services extends AppCompatActivity {
     private Button ResturantBtn;
+    private Button other;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,14 +18,22 @@ public class Services extends AppCompatActivity {
 
 
         ResturantBtn = (Button) findViewById(R.id.coffe);
+        other = (Button) findViewById(R.id.other);
 
         ResturantBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                Intent ResturantList = new Intent(getApplicationContext(), Restaurants.class);
-               ResturantList.getStringExtra("user_id");
                 startActivity(ResturantList);
+            }
+        });
+
+        other.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Other_services = new Intent(getApplicationContext(), OtherServices.class);
+                startActivity(Other_services);
             }
         });
     }

@@ -148,6 +148,20 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
         mUsers= FirebaseDatabase.getInstance().getReference("Restaurantsmap");
         mUsers.push().setValue(marker);
 
+
+
+    }
+    /**
+     * Saves the state of the map when the activity is paused.
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (mMap != null) {
+            outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
+            outState.putParcelable(KEY_LOCATION, mLastKnownLocation);
+            super.onSaveInstanceState(outState);
+        }
+
         // Getting latitude of the current location
 
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -170,18 +184,6 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
         }
         Toast.makeText(providerMap.this, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
 
-
-    }
-    /**
-     * Saves the state of the map when the activity is paused.
-     */
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        if (mMap != null) {
-            outState.putParcelable(KEY_CAMERA_POSITION, mMap.getCameraPosition());
-            outState.putParcelable(KEY_LOCATION, mLastKnownLocation);
-            super.onSaveInstanceState(outState);
-        }
     }
 
     /**
@@ -591,7 +593,7 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
             public void onClick(View v) {
                 Intent go = new Intent(providerMap.this,IamReady.class);
                 go.putExtra("idOnesignal", getIntent().getStringExtra("idOnesignal"));
-                Log.e("idOnesignal111", getIntent().getStringExtra("idOnesignal"));
+              //  Log.e("idOnesignal", getIntent().getStringExtra("idOnesignal"));
                 startActivity(go);
             }
         });

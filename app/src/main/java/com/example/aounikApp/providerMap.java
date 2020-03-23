@@ -81,15 +81,18 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
     Double ResturantLog;
     Button go;
     int price = 0;
+    float time;
+    float total;
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
     private LocationListener locationListener;
     private LocationManager locationManager;
     private final long MIN_TIME = 1000;
     private final long MIN_DIST = 5;
-
     private CameraPosition mCameraPosition;
-
+    TextView expected_distance;
+    TextView expected_time;
+    TextView expected_price;
     // The entry point to the Places API.
     private PlacesClient mPlacesClient;
 
@@ -184,7 +187,10 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
         }
         Toast.makeText(providerMap.this, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
 
+
+
     }
+
 
     /**
      * Sets up the options menu.
@@ -211,6 +217,7 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
         }
         return true;
     }
+
 
     /**
      * Manipulates the map when it's available.
@@ -278,12 +285,12 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
 
                         float distance = loc1.distanceTo(loc2);
                         float distance2 = loc2.distanceTo(loc3);
-                        float total = (distance+distance2)/1000;
+                         total = (distance+distance2)/1000;
                         reqMarker.setSnippet("Distance = "+ total);
 
                         int speed=5;
-                        float time = (total/speed)*60;
-                        Toast.makeText(providerMap.this, "Time = "+ time, Toast.LENGTH_LONG).show();
+                         time = (total/speed)*60;
+                       // Toast.makeText(providerMap.this, "Time = "+ time, Toast.LENGTH_LONG).show();
 
                         //estmation price
 
@@ -304,23 +311,19 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
                         }else {
                             price = 10;
                             }
-                        Toast.makeText(providerMap.this, "price = "+ price, Toast.LENGTH_LONG).show();
-
-//                        Intent intent1 = new Intent();
-//                        // intent1.putExtra("time", time);
-//                        intent1.putExtra("price", price);
-//                        setResult(RESULT_OK, intent1);
-//                        finish();
-
+                       // Toast.makeText(providerMap.this, "price = "+ price, Toast.LENGTH_LONG).show();
+                        expected_distance = findViewById(R.id.distance);
+                        expected_time = findViewById(R.id.time);
+                        expected_price = findViewById(R.id.price);
+                        String distanceString=Float.toString((int)Math.round(total));
+                        String timeString=Float.toString((int)Math.round(time));
+                        String priceString=Integer.toString(price);
+                        expected_distance.setText(distanceString+" "+"Km");
+                        expected_time.setText(timeString+" "+"Min");
+                        expected_price.setText(priceString+" "+"SR");
                     }
 
-
                 }
-
-
-
-
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

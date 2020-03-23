@@ -80,7 +80,7 @@ public class OrderPage extends AppCompatActivity {
                 idOnesignal = intent.getStringExtra("idOnesignal");
                 intent.setClass(OrderPage.this, providerMap.class);
                 intent.putExtra("name", name);
-                Log.e("idOnesignalqqqq", idOnesignal);
+                Log.e("idOnesignal", idOnesignal);
                 intent.putExtra("idOnesignal", idOnesignal);
                 startActivityForResult(intent, 1);
 

@@ -45,6 +45,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,OrderPage.class);
+                intent.putExtra("order_id",orders.get(position).getId());
                 intent.putExtra("id",orders.get(position).getResturantName());
                 intent.putExtra("date",orders.get(position).getDate());
                 intent.putExtra("idOnesignal",orders.get(position).getOnesignalID());

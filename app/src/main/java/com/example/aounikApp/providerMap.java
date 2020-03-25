@@ -595,7 +595,9 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
             @Override
             public void onClick(View v) {
                 Intent go = new Intent(providerMap.this,IamReady.class);
+                //Reem
                 go.putExtra("idOnesignal", getIntent().getStringExtra("idOnesignal"));
+                go.putExtra("order_id", getIntent().getStringExtra("order_id"));
               //  Log.e("idOnesignal", getIntent().getStringExtra("idOnesignal"));
                 startActivity(go);
             }

@@ -25,24 +25,23 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class IamReady extends AppCompatActivity {
-    Button ready;
+public class IamComing extends AppCompatActivity {
+    Button come;
     static  String userId;
-    int new_status = 1;
+    int new_status = 2;
     private static final String TAG = "IamReady";
     private DatabaseReference orders;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_iam_ready);
-
-        ready = findViewById(R.id.ready);
+        setContentView(R.layout.activity_iam_coming);
+        come = findViewById(R.id.coming);
 
         final Intent intent = getIntent();
-         userId = intent.getStringExtra("user_id");
+        userId = intent.getStringExtra("user_id");
         orders = FirebaseDatabase.getInstance().getReference("Order");
 
-     }
+    }
 
     public void runtimeEnableAutoInit(){
         // [START fcm_runtime_enable_auto_init]
@@ -56,22 +55,21 @@ public class IamReady extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 // Toast.makeText(providerMap.this, result, Toast.LENGTH_LONG).show();
-                //Reem
                 String id = OrderPage.order_id;
-                Toast.makeText(IamReady.this, id, Toast.LENGTH_LONG).show();
+                Toast.makeText(IamComing.this, id, Toast.LENGTH_LONG).show();
 
                 for (DataSnapshot s : dataSnapshot.getChildren()) {
                     if (s.getKey().equals(id)) {
 
-                     //  s.getRef().child("id").child("status").setValue(new_status);
+                        //  s.getRef().child("id").child("status").setValue(new_status);
 
                         Map<String, Object> result = new HashMap<>();
                         result.put("status", new_status);
                         orders.child(id).updateChildren(result);
 
                         sendNotification();
-                        Toast.makeText(IamReady.this, "status updated", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(IamReady.this,IamComing.class);
+                        Toast.makeText(IamComing.this, "status updated", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(IamComing.this,arrived.class);
                         startActivity(intent);
                     }}}
 
@@ -89,11 +87,6 @@ public class IamReady extends AppCompatActivity {
 
 
     }
-
-    private void updateStatus() {
-
-    }
-
     private void sendNotification() {
 
         // Toast.makeText(this, "Current Recipients is : 1617367 ( Just For Demo )", Toast.LENGTH_SHORT).show();
@@ -132,7 +125,7 @@ public class IamReady extends AppCompatActivity {
                                 //   +   "\"included_segments\": [\"All\"],"
 
                                 + "\"data\": {\"foo\": \"bar\"},"
-                                + "\"contents\": {\"en\": \"I am ready to deliever\"}"
+                                + "\"contents\": {\"en\": \"I am coming\"}"
                                 + "}";
 
 
@@ -165,10 +158,7 @@ public class IamReady extends AppCompatActivity {
                 }
             }
         });
-    }}
 
 
-
-
-
-
+    }
+}

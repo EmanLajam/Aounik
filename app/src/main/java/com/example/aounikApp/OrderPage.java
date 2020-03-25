@@ -25,8 +25,9 @@ public class OrderPage extends AppCompatActivity {
     TextView textView4;
     TextView textView5;
     TextView textView6;
-
+//Reem
     public static String idOnesignal;
+    public static String order_id;
 
 
     String phone;
@@ -74,15 +75,19 @@ public class OrderPage extends AppCompatActivity {
                 ii.putExtra("name", name);
                 startActivity(ii);
                 */
+                order_id = intent.getStringExtra("order_id");
                 latitude = intent.getDoubleExtra("latitude", 0.0);
                 longitude = intent.getDoubleExtra("longitude", 0.0);
                 String place = intent.getStringExtra("place");
                 idOnesignal = intent.getStringExtra("idOnesignal");
+                //Reem
                 intent.setClass(OrderPage.this, providerMap.class);
                 intent.putExtra("name", name);
                 Log.e("idOnesignal", idOnesignal);
+                Log.e("order_id", order_id);
+                intent.putExtra("order_id", order_id);
                 intent.putExtra("idOnesignal", idOnesignal);
-                startActivityForResult(intent, 1);
+                startActivity(intent);
 
 
             }

@@ -20,8 +20,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OtherServices"></activity>
-        <activity android:name=".IamReady"></activity>
+        <activity android:name=".Done"></activity>
+        <activity android:name=".arrived" />
+        <activity android:name=".IamComing" />
+        <activity android:name=".OtherServices" />
+        <activity android:name=".IamReady" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

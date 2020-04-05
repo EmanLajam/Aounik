@@ -59,6 +59,9 @@ public class Done extends AppCompatActivity {
 
                         sendNotification();
                         Toast.makeText(Done.this, "status updated", Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(Done.this,Rating.class);
+                        startActivity(intent);
                     }}}
 
             @Override

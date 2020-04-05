@@ -68,8 +68,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class providerMap extends FragmentActivity implements OnMapReadyCallback {
 
-    Double longitude =0.0 ;
-    Double latitude =0.0;
+    Double longitude;
+    Double latitude;
     Marker reqMarker;
     private DatabaseReference mUsers;
     Marker marker;
@@ -165,30 +165,6 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
             super.onSaveInstanceState(outState);
         }
 
-        // Getting latitude of the current location
-
-        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            return;
-        }
-        if (lm.getLastKnownLocation(LocationManager.GPS_PROVIDER) != null) {
-            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            longitude = location.getLongitude();
-            latitude = location.getLatitude();
-        } else {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                return;
-            }
-            Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            longitude = location.getLongitude();
-            latitude = location.getLatitude();
-        }
-        Toast.makeText(providerMap.this, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
-
-
-
     }
 
 
@@ -228,6 +204,28 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
         mMap = map;
 
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        // Getting latitude of the current location
+
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        if (lm.getLastKnownLocation(LocationManager.GPS_PROVIDER) != null) {
+            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+        } else {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                return;
+            }
+            Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+        }
+        Toast.makeText(providerMap.this, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
+
         mUsers.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -258,7 +256,7 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
                         LatLng marker = new LatLng(reqLat,reqLng);
 
                         reqMarker = mMap.addMarker(new MarkerOptions()
-                                .position(new LatLng(reqLat,reqLng)).title(place)
+                                .position(marker).title(place)
                                 .visible(true)
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker_pink)));
 

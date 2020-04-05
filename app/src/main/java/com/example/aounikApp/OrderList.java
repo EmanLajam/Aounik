@@ -42,13 +42,16 @@ public class OrderList extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
-                    orders.add(dataSnapshot1.getValue(order.class));
+                    int status = dataSnapshot1.child("status").getValue(int.class);
 
+                    if (status == 0 || status == 1) {
+                  orders.add(dataSnapshot1.getValue(order.class));
 
+                    }
+                    MyAdapter adapter = new MyAdapter(OrderList.this, orders);
+                    recyclerView.setAdapter(adapter);
+                    }
 
-                }
-                MyAdapter adapter = new MyAdapter(OrderList.this, orders);
-                recyclerView.setAdapter(adapter);
             }
 
             @Override

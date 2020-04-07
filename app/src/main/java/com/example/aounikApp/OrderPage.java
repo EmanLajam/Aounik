@@ -87,6 +87,8 @@ public class OrderPage extends AppCompatActivity {
                 Log.e("order_id", order_id);
                 intent.putExtra("order_id", order_id);
                 intent.putExtra("idOnesignal", idOnesignal);
+                intent.putExtra("user_id", getIntent().getStringExtra("user_id"));
+
                 startActivity(intent);
 
 

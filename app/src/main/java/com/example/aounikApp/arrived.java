@@ -60,6 +60,8 @@ public class arrived extends AppCompatActivity {
                         sendNotification();
                         Toast.makeText(arrived.this, "status updated", Toast.LENGTH_LONG).show();
                        Intent intent = new Intent(arrived.this,Done.class);
+                        intent.putExtra("user_id", getIntent().getStringExtra("user_id"));
+
                         startActivity(intent);
                     }}}
 

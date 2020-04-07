@@ -25,6 +25,7 @@ public class Services extends AppCompatActivity {
             public void onClick(View v) {
 
                Intent ResturantList = new Intent(getApplicationContext(), Restaurants.class);
+                ResturantList.putExtra("user_id", getIntent().getStringExtra("user_id"));
                 startActivity(ResturantList);
             }
         });
@@ -33,6 +34,7 @@ public class Services extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent Other_services = new Intent(getApplicationContext(), OtherServices.class);
+                Other_services.putExtra("user_id", getIntent().getStringExtra("user_id"));
                 startActivity(Other_services);
             }
         });

@@ -489,6 +489,7 @@ public class MapsActivity extends AppCompatActivity
                 Intent intent = getIntent();
                 order Order = (order) intent.getSerializableExtra("order_data");
                 intent.putExtra("order_data", Order);
+                intent.putExtra("user_id", getIntent().getStringExtra("user_id"));
                 intent.setClass(MapsActivity.this, MapWithMarker.class);
                 startActivity(intent);
             }

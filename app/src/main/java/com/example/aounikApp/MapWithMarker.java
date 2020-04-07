@@ -131,6 +131,7 @@ public class MapWithMarker extends AppCompatActivity
                Order.setLongitude(logitude);
               intent.putExtra("order_data", Order);
               intent.putExtra("place", place);
+              intent.putExtra("user_id", getIntent().getStringExtra("user_id"));
               intent.setClass(MapWithMarker.this,LocationForm.class);
                 startActivity(intent);
                Toast.makeText(MapWithMarker.this, "Ok", Toast.LENGTH_LONG).show();

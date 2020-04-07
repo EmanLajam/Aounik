@@ -28,6 +28,10 @@ public class Regster extends AppCompatActivity {
     EditText edtUsername, edtPassword, edtMail , editID ,ediphon;
     Button btnSignUp ;
 
+    float Rating = 0;
+    int Count =0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,24 +48,12 @@ public class Regster extends AppCompatActivity {
         ediphon = (EditText) findViewById(R.id.editPhone);
 
         btnSignUp = (Button) findViewById(R.id.btnSignUp);
-       /* btnToSignIn = (Button) findViewById(R.id.btnToSingIn);
 
-
-
-
-         btnToSignIn.setOnClickListener(new View.OnClickListener() {
-          @Override
-           public void onClick(View v) {
-        Intent s = new Intent(getApplicationContext(),LoginActivity.class);
-           startActivity(s);
-          }
-         });
-*/
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final User user = new User(edtUsername.getText().toString(),
-                        edtPassword.getText().toString(),edtMail.getText().toString(),editID.getText().toString(),ediphon.getText().toString());
+                        edtPassword.getText().toString(),edtMail.getText().toString(),editID.getText().toString(),ediphon.getText().toString(),Rating,Count);
 
                 if (edtPassword.getText().toString().trim().isEmpty()|| ediphon.getText().toString().trim().isEmpty()|| edtUsername.getText().toString().trim().isEmpty()
                         ||edtMail.getText().toString().trim().isEmpty()||editID.getText().toString().trim().isEmpty()) {
@@ -100,6 +92,7 @@ public class Regster extends AppCompatActivity {
                                 users.child(user.getID()).setValue(user);
                                 Toast.makeText(Regster.this, "successfully registered", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                startActivity(intent);
                             }
                         }
 

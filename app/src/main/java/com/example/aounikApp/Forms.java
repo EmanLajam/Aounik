@@ -56,7 +56,7 @@ public class Forms extends AppCompatActivity {
 
               Intent intent = new Intent(Forms.this, MapsActivity.class);
               intent.putExtra("order_data", Order);
-              intent.getStringExtra("user_id");
+              intent.putExtra("user_id", getIntent().getStringExtra("user_id"));
               startActivity(intent);
 
             } else {

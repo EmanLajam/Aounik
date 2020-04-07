@@ -9,17 +9,21 @@ public class User implements Serializable {
     private String password;
     private String email;
     private String phone;
-
+    float Rating=0;
+    int Count=0;
     public User(){
 
     }
 
-    public User(String username, String password, String email , String ID,String phone) {
+    public User(String username, String password, String email , String ID,String phone, float rating , int count) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.ID = ID;
         this.phone=phone;
+        Rating= rating;
+        Count =count;
+
     }
 
     public String getUsername() {
@@ -63,7 +67,23 @@ public class User implements Serializable {
     }
 
 
+    public void setRating(float rating) {
+        Rating = rating;
+    }
 
+
+    public void setCount(int count) {
+        Count = count;
+    }
+
+
+    public float getRating() {
+        return Rating;
+    }
+
+    public int getCount() {
+        return Count;
+    }
 
 
 }

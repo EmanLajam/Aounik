@@ -72,6 +72,7 @@ public class IamReady extends AppCompatActivity {
                         sendNotification();
                         Toast.makeText(IamReady.this, "status updated", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(IamReady.this,IamComing.class);
+                        intent.putExtra("user_id", getIntent().getStringExtra("user_id"));
                         startActivity(intent);
                     }}}
 

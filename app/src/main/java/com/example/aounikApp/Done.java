@@ -29,6 +29,7 @@ import java.util.Scanner;
 public class Done extends AppCompatActivity {
     int new_status = 4;
     private DatabaseReference orders;
+    public static String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,9 @@ public class Done extends AppCompatActivity {
                         Toast.makeText(Done.this, "status updated", Toast.LENGTH_LONG).show();
 
                         Intent intent = new Intent(Done.this,Rating.class);
+                        user_id = intent.getStringExtra("user_id");
+                        intent.putExtra("user_id", user_id);
+
                         startActivity(intent);
                     }}}
 

@@ -28,7 +28,6 @@ public class order implements Serializable {
     private Double Longitude;
     private Double Latitude;
     int Status = 0 ;
-    private DatabaseReference orders;
 
     public void setLocationDes(String locationDes) {
         this.locationDes = locationDes;
@@ -63,6 +62,8 @@ public class order implements Serializable {
         return Latitude;
     }
 
+
+
     public order() {
     }
 
@@ -82,6 +83,8 @@ public class order implements Serializable {
         UserID = userID;
     }
 
+
+
     public order(String id, String OnesignalID, String name, String moblie, String Date, String description, String locationDes , Double longitude, Double latitude , String userID, int status) {
         this.id = id;
         this.OnesignalID = OnesignalID;
@@ -94,6 +97,7 @@ public class order implements Serializable {
         Longitude = longitude;
         UserID = userID;
         Status = status;
+
     }
 
     public String getId() {
@@ -129,7 +133,23 @@ public class order implements Serializable {
     }
 
     public int getStatus() {
+
         return Status;
+    }
+    public String getStatusAsString() {
+        switch (Status) {
+            case 0:
+                return "on start";
+            case 1:
+                return "send offer";
+            case 2:
+                return "Provider comming";
+            case 3:
+                return "provider arrived";
+            case 4:
+                return "End";
+            default: return "undefiend";
+        }
     }
 
     public void setStatus(int status) {

@@ -44,7 +44,7 @@ public class Restaurants extends AppCompatActivity {
                 String list1Text = list.get(posistion).getmTextView1();
                 Intent i = new Intent(Restaurants.this,Forms.class);
                 i.putExtra("name", list1Text);
-                i.getStringExtra("user_id");
+                i.putExtra("user_id", getIntent().getStringExtra("user_id"));
                 startActivity(i);
 
             }

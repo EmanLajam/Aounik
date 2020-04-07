@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +20,8 @@ public class LocationForm extends AppCompatActivity {
     Button send;
     DatabaseReference databaseReference;
     FirebaseDatabase database;
-    String user_id;
+    public static String user_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,7 @@ public class LocationForm extends AppCompatActivity {
                 Order.Status = status;
                 Order.setOnesignalID(OneSignal.getPermissionSubscriptionState().getSubscriptionStatus().getUserId());
                 user_id = intent.getStringExtra("user_id");
+                Log.e("order_id", user_id);
                 Order.setUserID(user_id);
                 databaseReference.child(id).setValue(Order);
                 Toast.makeText(LocationForm.this, "Done", Toast.LENGTH_LONG).show();

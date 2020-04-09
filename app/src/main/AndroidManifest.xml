@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".progress"></activity>
+        <activity android:name=".ExampleNotificationOpenedHandler"></activity>
+        <activity android:name=".progress" />
         <activity android:name=".Done" />
         <activity android:name=".Rating" />
         <activity android:name=".arrived" />

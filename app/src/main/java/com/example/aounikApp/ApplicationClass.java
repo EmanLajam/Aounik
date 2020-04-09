@@ -18,6 +18,7 @@ public class ApplicationClass extends Application {
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
+                .setNotificationOpenedHandler(new ExampleNotificationOpenedHandler(this))
                 .init();
 
         database = FirebaseDatabase.getInstance();

@@ -40,10 +40,12 @@ public class OtherServices extends AppCompatActivity {
                 Order.setDate(date.getText().toString());
                 Order.setDescription(desc.getText().toString());
                 Order.setResturantName("Other Services");
+
                 if (!Order.getDate().isEmpty() && !Order.getDescription().isEmpty()) {
 
 
                     Intent intent = new Intent(OtherServices.this, MapsActivity.class);
+                    intent.putExtra("user_id", getIntent().getStringExtra("user_id"));
                     intent.putExtra("order_data", Order);
                     startActivity(intent);
 

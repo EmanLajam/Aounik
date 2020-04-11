@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     Context context;
     ArrayList<order> orders;
-
+    public static String RequesterId = "";
 
 
     public MyAdapter(Context c,ArrayList<order> res){
@@ -45,6 +45,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,OrderPage.class);
+                RequesterId = orders.get(position).UserID;
                 intent.putExtra("user_id", orders.get(position).getUserID());
                 intent.putExtra("status", orders.get(position).getStatus());
                 intent.putExtra("order_id",orders.get(position).getId());

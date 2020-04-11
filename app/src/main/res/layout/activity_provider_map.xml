@@ -20,6 +20,8 @@ tools:layout="@android:layout/simple_spinner_dropdown_item">
     android:layout_height="64dp"
     android:background="@drawable/iam"
     android:layout_marginTop="600dp"
+    android:onClick="btn_notify"
+
     />
 
     <TextView

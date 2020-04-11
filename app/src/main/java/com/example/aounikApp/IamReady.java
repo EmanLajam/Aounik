@@ -57,6 +57,7 @@ public class IamReady extends AppCompatActivity {
 
                 // Toast.makeText(providerMap.this, result, Toast.LENGTH_LONG).show();
                 //Reem
+
                 String id = OrderPage.order_id;
                 Toast.makeText(IamReady.this, id, Toast.LENGTH_LONG).show();
 
@@ -67,6 +68,7 @@ public class IamReady extends AppCompatActivity {
 
                         Map<String, Object> result = new HashMap<>();
                         result.put("status", new_status);
+                        result.put("providerID", LoginActivity.UserID);
                         orders.child(id).updateChildren(result);
 
                         sendNotification();

@@ -22,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseReference users;
     EditText edtID, edtPassword;
     Button btnSignIn;
+    public static String UserID = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (!id.isEmpty()) {
                         User Login = dataSnapshot.child(id).getValue(User.class);
                         if (Login.getPassword().equals(password)) {
+                            LoginActivity.UserID = id;
                             Toast.makeText(LoginActivity.this, "Success Login", Toast.LENGTH_SHORT).show();
                             Intent s = new Intent(getApplicationContext(), Roles.class);
                             s.putExtra("user_id", id);

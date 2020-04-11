@@ -1,8 +1,11 @@
 package com.example.aounikApp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
@@ -24,10 +27,9 @@ public class Rating extends AppCompatActivity {
     RatingBar ratingBar;
     Button btsubmit;
     private DatabaseReference mRatingBarCh;
-    int user = 0;
+    int user = 1;
     TextView review_count, review_average;
-    int count = 0;
-
+    DatabaseReference addref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,48 +43,78 @@ public class Rating extends AppCompatActivity {
         btsubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                 addref = FirebaseDatabase.getInstance().getReference("Ratings");
 
-                final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                // final DatabaseReference mRatingBarCh = rootRef.child("ratings");
-
-                rootRef.child("Users").child("id").addValueEventListener(new ValueEventListener() {
+                DatabaseReference presenceRef = addref.child(MyAdapter.RequesterId);
+                presenceRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        float  Rating = ratingBar.getRating();
-                        float total = 0;
-                        float average = 0;
-                        String id = getIntent().getStringExtra("user_id");
-                        for (DataSnapshot child : dataSnapshot.getChildren()) {
-                            float rating = child.child("rating").getValue(float.class);
-                            int Count = child.child("count").getValue(int.class);
-                            Count = Count + 1 ;
-                            total = Rating + rating;
-                            average = total / count;
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                            if (child.getKey().equals(id)) {
+                        if (dataSnapshot.exists())
+                        {
+                            Log.e("ItHas", "true");
+                            float ratings = dataSnapshot.child(MyAdapter.RequesterId).child("rate")
+                                    .getValue(float.class);
+                            int count = dataSnapshot.child(MyAdapter.RequesterId).child("count")
+                                    .getValue(int.class);
 
-                                Map<String, Object> result = new HashMap<>();
-                                result.put("rating", average);
-                                result.put("count", Count);
-                                rootRef.child(id).updateChildren(result);
-                            }
-                            if (Count != 0) {
-                                ratingBar.setRating(total / count);
-                                review_count.setText(id);
-                                review_average.setText((total / Count) + "");
-                            }
-                        }}
+
+
+                            float new_rate = ratings + ratingBar.getRating();
+                            count += 1;
+
+                            Map<String, Object> result = new HashMap<>();
+                            result.put("rate", (new_rate / count));
+                            result.put("count", count);
+                            addref.child(MyAdapter.RequesterId).updateChildren(result);
+                        }
+                        else {
+                            Log.e("ItHas", "false");
+                            Map<String, Object> result = new HashMap<>();
+                            result.put("rate", ratingBar.getRating());
+                            result.put("count", 1);
+                            addref.child(MyAdapter.RequesterId).setValue(result);
+                        }
+
+
+                    }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        throw databaseError.toException(); // don't ignore errors
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
                     }
                 });
 
+                user++;
+                addref.setValue(ratingBar.getRating());
             }
-
-
         });
 
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        // final DatabaseReference mRatingBarCh = rootRef.child("ratings");
 
-}}
+        rootRef.child("Ratings").child("reem").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int total = 0,
+                        count = 0;
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    int rating = dataSnapshot.child("user" + (count + 1)).getValue(Integer.class);
+                    total = total + rating;
+                    count = count + 1;
+                }
+                if (count != 0) {
+                    ratingBar.setRating(total / count);
+                    review_count.setText(count + "");
+                    review_average.setText(((float)total / (float)count) + "");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                throw databaseError.toException(); // don't ignore errors
+            }
+        });
+
+    }
+}

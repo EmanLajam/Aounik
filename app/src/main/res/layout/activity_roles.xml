@@ -39,7 +39,7 @@
         app:fontFamily="sans-serif"
         app:layout_constraintBottom_toTopOf="@+id/provider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.628"
+        app:layout_constraintHorizontal_bias="0.677"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button

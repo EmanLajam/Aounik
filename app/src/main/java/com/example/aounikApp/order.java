@@ -1,20 +1,6 @@
 package com.example.aounikApp;
 
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 public class order implements Serializable {
       String id;
@@ -28,6 +14,24 @@ public class order implements Serializable {
     private Double Longitude;
     private Double Latitude;
     int Status = 0 ;
+    int Price =0;
+    float Time = 0;
+
+    public order(String id, String onesignalID, String userID, String moblie, String date, String description, String resturantName, String locationDes, Double longitude, Double latitude, int status, int price, float time) {
+        this.id = id;
+        OnesignalID = onesignalID;
+        UserID = userID;
+        this.moblie = moblie;
+        this.date = date;
+        Description = description;
+        this.resturantName = resturantName;
+        this.locationDes = locationDes;
+        Longitude = longitude;
+        Latitude = latitude;
+        Status = status;
+        Price = price;
+        Time = time;
+    }
 
     public void setLocationDes(String locationDes) {
         this.locationDes = locationDes;
@@ -85,20 +89,7 @@ public class order implements Serializable {
 
 
 
-    public order(String id, String OnesignalID, String name, String moblie, String Date, String description, String locationDes , Double longitude, Double latitude , String userID, int status) {
-        this.id = id;
-        this.OnesignalID = OnesignalID;
-        resturantName = name;
-        this.moblie = moblie;
-        date = Date;
-        Description = description;
-        this.locationDes = locationDes;
-        Latitude = latitude;
-        Longitude = longitude;
-        UserID = userID;
-        Status = status;
 
-    }
 
     public String getId() {
         return id;
@@ -152,8 +143,24 @@ public class order implements Serializable {
         }
     }
 
+    public void setPrice(int price) {
+        Price = price;
+    }
+
+    public void setTime(float time) {
+        Time = time;
+    }
+
     public void setStatus(int status) {
         Status = status;
+    }
+
+    public int getPrice() {
+        return Price;
+    }
+
+    public float getTime() {
+        return Time;
     }
     /*
     public void updateStatus(){

@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText edtID, edtPassword;
     Button btnSignIn;
     public static String UserID = "";
+    public static String providerName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

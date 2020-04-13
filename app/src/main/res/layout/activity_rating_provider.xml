@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="com.example.aounikApp.Rating">
+    tools:context="com.example.aounikApp.RatingProvider">
 
 
     <RatingBar
-        android:id="@+id/ratingBar"
+        android:id="@+id/ratingBar2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:numStars="5"

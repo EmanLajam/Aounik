@@ -44,7 +44,7 @@ public class OrderList extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
                     int status = dataSnapshot1.child("status").getValue(int.class);
 
-                    if (status == 0 || status == 1) {
+                    if (status == 0) {
                   orders.add(dataSnapshot1.getValue(order.class));
 
                     }

@@ -43,11 +43,6 @@ public class IamComing extends AppCompatActivity {
 
     }
 
-    public void runtimeEnableAutoInit(){
-        // [START fcm_runtime_enable_auto_init]
-        // [END fcm_runtime_enable_auto_init]
-    }
-
     public void  btn_notify(View view) {
 
         orders.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -56,7 +51,6 @@ public class IamComing extends AppCompatActivity {
 
                 // Toast.makeText(providerMap.this, result, Toast.LENGTH_LONG).show();
                 String id = OrderPage.order_id;
-                Toast.makeText(IamComing.this, id, Toast.LENGTH_LONG).show();
 
                 for (DataSnapshot s : dataSnapshot.getChildren()) {
                     if (s.getKey().equals(id)) {
@@ -68,7 +62,6 @@ public class IamComing extends AppCompatActivity {
                         orders.child(id).updateChildren(result);
 
                         sendNotification();
-                        Toast.makeText(IamComing.this, "status updated", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(IamComing.this,arrived.class);
                         intent.putExtra("user_id", getIntent().getStringExtra("user_id"));
 
@@ -161,6 +154,5 @@ public class IamComing extends AppCompatActivity {
             }
         });
 
-
-    }
-}
+        
+    }}

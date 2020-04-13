@@ -50,8 +50,12 @@ public class LocationForm extends AppCompatActivity {
                 user_id = intent.getStringExtra("user_id");
                 Log.e("order_id", user_id);
                 Order.setUserID(user_id);
+                Order.setPrice(0);
+                Order.setTime(0);
                 databaseReference.child(id).setValue(Order);
                 Toast.makeText(LocationForm.this, "Done", Toast.LENGTH_LONG).show();
+                Intent intent1 = new Intent(LocationForm.this, ThankYou.class);
+                startActivity(intent1);
             }
         });
     }

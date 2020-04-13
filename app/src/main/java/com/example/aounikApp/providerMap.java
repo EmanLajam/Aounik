@@ -92,8 +92,11 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
     Double ResturantLat;
     Double ResturantLog;
     Button go;
-    int price = 0;
-    float time;
+    public static String providerID = LoginActivity.UserID;
+    public static int price = 0;
+    public static String timeString;
+    public static String priceString;
+    public static float time;
     float total;
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
@@ -241,7 +244,7 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
             longitude = location.getLongitude();
             latitude = location.getLatitude();
         }
-        Toast.makeText(providerMap.this, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(providerMap.this, latitude + " " + longitude, Toast.LENGTH_SHORT).show();
 
         mUsers.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -258,7 +261,7 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
                         Double ResturantLat = s.child("lat").getValue(Double.class);
                      Double ResturantLog = s.child("lon").getValue(Double.class);
                         String name = s.child("name").getValue(String.class);
-                      Toast.makeText(providerMap.this, name, Toast.LENGTH_LONG).show();
+                   //   Toast.makeText(providerMap.this, name, Toast.LENGTH_LONG).show();
 
 
                         //   UserInformation user = s.getValue(UserInformation.class);
@@ -331,8 +334,8 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
                         expected_time = findViewById(R.id.time);
                         expected_price = findViewById(R.id.price);
                         String distanceString=Float.toString((int)Math.round(total));
-                        String timeString=Float.toString((int)Math.round(time));
-                        String priceString=Integer.toString(price);
+                        timeString=Float.toString((int)Math.round(time));
+                        priceString=Integer.toString(price);
                         expected_distance.setText(distanceString+" "+"Km");
                         expected_time.setText(timeString+" "+"Min");
                         expected_price.setText(priceString+" "+"SR");
@@ -630,7 +633,6 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
                 //Reem
 
                 String id = OrderPage.order_id;
-                Toast.makeText(providerMap.this, id, Toast.LENGTH_LONG).show();
 
                 for (DataSnapshot s : dataSnapshot.getChildren()) {
                     if (s.getKey().equals(id)) {
@@ -640,12 +642,16 @@ public class providerMap extends FragmentActivity implements OnMapReadyCallback 
                         Map<String, Object> result = new HashMap<>();
                         result.put("status", new_status);
                         result.put("providerID", LoginActivity.UserID);
+                        result.put("price", price);
+                        result.put("time", time);
                         orders.child(id).updateChildren(result);
 
                         sendNotification();
-                        Toast.makeText(providerMap.this, "status updated", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(providerMap.this,IamComing.class);
                         intent.putExtra("user_id", getIntent().getStringExtra("user_id"));
+                        intent.putExtra("price",price);
+                        intent.putExtra("time",timeString);
+                        intent.putExtra("providerID",providerID);
                         startActivity(intent);
                     }}}
 

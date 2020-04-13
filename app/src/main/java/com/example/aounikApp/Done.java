@@ -47,7 +47,6 @@ public class Done extends AppCompatActivity {
 
                 // Toast.makeText(providerMap.this, result, Toast.LENGTH_LONG).show();
                 String id = OrderPage.order_id;
-                Toast.makeText(Done.this, id, Toast.LENGTH_LONG).show();
 
                 for (DataSnapshot s : dataSnapshot.getChildren()) {
                     if (s.getKey().equals(id)) {
@@ -59,7 +58,6 @@ public class Done extends AppCompatActivity {
                         orders.child(id).updateChildren(result);
 
                         sendNotification();
-                        Toast.makeText(Done.this, "status updated", Toast.LENGTH_LONG).show();
 
                         Intent intent = new Intent(Done.this,Rating.class);
                         user_id = intent.getStringExtra("user_id");

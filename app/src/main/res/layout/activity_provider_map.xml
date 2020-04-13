@@ -1,9 +1,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context="com.example.aounikApp.providerMap"
-tools:layout="@android:layout/simple_spinner_dropdown_item">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.aounikApp.providerMap"
+    tools:layout="@android:layout/simple_spinner_dropdown_item">
 
 <fragment
     android:id="@+id/map"
@@ -14,75 +15,77 @@ tools:layout="@android:layout/simple_spinner_dropdown_item">
     tools:layout="@android:layout/simple_spinner_dropdown_item" />
 
 
-<Button
-    android:id="@+id/go"
-    android:layout_width="match_parent"
-    android:layout_height="64dp"
-    android:background="@drawable/iam"
-    android:layout_marginTop="600dp"
-    android:onClick="btn_notify"
+    <Button
+        android:id="@+id/go"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginTop="630dp"
+        android:background="@drawable/iam"
+        android:onClick="btn_notify"
+        app:layout_constraintTop_toBottomOf="@+id/expected_price" />
+
 
     />
 
     <TextView
-        android:id="@+id/expected_distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="520dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="20dp"
-        android:textColor="@color/colorPrimary"
-        android:text="Expected distance is:" />
+            android:id="@+id/expected_distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="520dp"
+            android:text="Expected distance is:"
+            android:textColor="@color/colorPrimary"
 
-    <TextView
-        android:id="@+id/distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="520dp"
-        android:layout_marginLeft="250dp"
-        android:textSize="20dp"
-        android:textColor="@color/colorAccent"
-        android:text="TextView" />
+            android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/expected_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="560dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="20dp"
-        android:textColor="@color/colorPrimary"
-        android:text="Expected Time is:" />
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="230dp"
+            android:layout_marginTop="520dp"
+            android:text="TextView"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="560dp"
-        android:layout_marginLeft="250dp"
-        android:textSize="20dp"
-        android:textColor="@color/colorAccent"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/expected_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="560dp"
+            android:text="Expected Time is:"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/expected_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="600dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="20dp"
-        android:textColor="@color/colorPrimary"
-        android:text="Total price:" />
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="230dp"
+            android:layout_marginTop="560dp"
+            android:text="TextView"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="600dp"
-        android:layout_marginLeft="250dp"
-        android:textSize="20dp"
-        android:textColor="@color/colorAccent"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/expected_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="600dp"
+            android:text="Total price:"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp" />
 
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="230dp"
+            android:layout_marginTop="600dp"
+            android:text="TextView"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp" />
 
-</FrameLayout>
+    </FrameLayout>

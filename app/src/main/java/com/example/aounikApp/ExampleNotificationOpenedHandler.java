@@ -28,7 +28,7 @@ public class ExampleNotificationOpenedHandler implements OneSignal.NotificationO
         JSONObject data = result.notification.payload.additionalData;
         String customKey;
 
-        Intent intent = new Intent(context2,OrderPage.class);
+        Intent intent = new Intent(context2,progress.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
         context2.startActivity(intent);
 

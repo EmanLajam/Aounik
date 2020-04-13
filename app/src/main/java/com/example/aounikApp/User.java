@@ -9,8 +9,8 @@ public class User implements Serializable {
     private String password;
     private String email;
     private String phone;
-    float Rating=0;
-    int Count=0;
+    float Rating;
+    int Count;
     public User(){
 
     }
